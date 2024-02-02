@@ -2,16 +2,18 @@ import pygame
 from time import sleep
 from random import randint
 
+# Inicializar pygame
 pygame.init()
-#VARIÁVEIS
+
+# Variáveis do jogo
+VEL_BARRAS = 5
+vel_bola = 5
 x_bola = randint(450, 650)
 y_bola = randint(200, 450)
 y_barrad = 300
 y_barrae = 300
-vel_barras = 5
-vel_bola = 5
-a = randint(0, 1)                #movimentação no eixo y
-b = randint(0, 1)                #movimentação no eixo x
+a = randint(0, 1)  # movimentação no eixo y
+b = randint(0, 1)  # movimentação no eixo x
 c = 0
 timer = 0
 vivo = 0
@@ -20,30 +22,36 @@ morte_d = 0
 bateu_esquerda = 0
 bateu_direita = 0
 
-#DOWNLOAD DAS IMAGENS
+# Carregar imagens
 bola = pygame.image.load('bola.png')
-barra = pygame.image.load('barra.png')             #30x130
+barra = pygame.image.load('barra.png')  # 30x130
 canto = pygame.image.load('canto.png')
 barra_lateral = pygame.image.load('barra_lateral.png')
+modos_de_jogo = pygame.image.load('modos_de_jogo.png')
+mdj1 = pygame.image.load('1.png')
+mdj2 = pygame.image.load('2.png')
+mdj3 = pygame.image.load('3.png')
+
+# Fontes
 fonte = pygame.font.SysFont('arial black', 80)
 fonte2 = pygame.font.SysFont('arial black', 120)
 fonte3 = pygame.font.SysFont('arial black', 40)
+
+# Textos
 game_over = fonte2.render('GAME OVER', True, (255, 0, 0), (0, 0, 0))
 vencedor_esquerda = fonte3.render('O jogador da esquerda ganhou!', True, (255, 0, 0), (0, 0, 0))
 vencedor_direita = fonte3.render('O jogador da direita ganhou!', True, (255, 0, 0), (0, 0, 0))
+tempo = fonte.render('Tempo: ', True, (255, 255, 255), (0, 0, 0))
+
+# Posicoes do texto
 pos_vencedor = vencedor_direita.get_rect()
 pos_vencedor.center = (600, 400)
-tempo = fonte.render('Tempo: ', True, (255, 255, 255), (0, 0, 0))
 pos_texto = tempo.get_rect()
 pos_texto.center = (580, 300)
 pos_placar = tempo.get_rect()
 pos_placar.center = (685, 100)
 pos_go = game_over.get_rect()
 pos_go.center = (600, 150)
-modos_de_jogo = pygame.image.load('modos_de_jogo.png')
-mdj1 = pygame.image.load('1.png')
-mdj2 = pygame.image.load('2.png')
-mdj3 = pygame.image.load('3.png')
 
 janela = pygame.display.set_mode((1200, 700))
 pygame.display.set_caption('Jogo')
@@ -85,13 +93,13 @@ if mdj == 1:                                                   #1º modo de jogo
         if event.type == pygame.QUIT:
             janela_aberta = False
         if comandos[pygame.K_w] and 30 <= y_barrae:
-            y_barrae -= vel_barras
+            y_barrae -= VEL_BARRAS
         if comandos[pygame.K_s] and y_barrae <= 530:
-            y_barrae += vel_barras
+            y_barrae += VEL_BARRAS
         if comandos[pygame.K_UP] and 30 <= y_barrad:
-            y_barrad -= vel_barras
+            y_barrad -= VEL_BARRAS
         if comandos[pygame.K_DOWN] and y_barrad <= 530:
-            y_barrad += vel_barras
+            y_barrad += VEL_BARRAS
 
         # LÓGICA DO JOGO
         if x_bola <= 10:
@@ -131,13 +139,13 @@ if mdj == 1:                                                   #1º modo de jogo
             x_bola -= vel_bola
         if tempo_segundo == 10:
             vel_bola += 3
-            vel_barras += 2
+            VEL_BARRAS += 2
         if tempo_segundo == 20:
             vel_bola += 2
-            vel_barras += 1
+            VEL_BARRAS += 1
         if tempo_segundo == 30:
             vel_bola += 5
-            vel_barras += 3
+            VEL_BARRAS += 3
 
         # FAZER AS COISAS APARECEREM NA TELA
         janela.blit(fundo, (0, 0))
@@ -180,13 +188,13 @@ if mdj == 2:                        #2º modo de jogo
         if event.type == pygame.QUIT:
             janela_aberta = False
         if comandos[pygame.K_w] and 30 <= y_barrae:
-            y_barrae -= vel_barras
+            y_barrae -= VEL_BARRAS
         if comandos[pygame.K_s] and y_barrae <= 530:
-            y_barrae += vel_barras
+            y_barrae += VEL_BARRAS
         if comandos[pygame.K_UP] and 30 <= y_barrad:
-            y_barrad -= vel_barras
+            y_barrad -= VEL_BARRAS
         if comandos[pygame.K_DOWN] and y_barrad <= 530:
-            y_barrad += vel_barras
+            y_barrad += VEL_BARRAS
 
         # LÓGICA DO JOGO
         if x_bola <= 10 and morte_e < 5:
@@ -227,13 +235,13 @@ if mdj == 2:                        #2º modo de jogo
             x_bola -= vel_bola
         if tempo_segundo == 10:
             vel_bola += 3
-            vel_barras += 2
+            VEL_BARRAS += 2
         if tempo_segundo == 20:
             vel_bola += 2
-            vel_barras += 1
+            VEL_BARRAS += 1
         if tempo_segundo == 30:
             vel_bola += 5
-            vel_barras += 3
+            VEL_BARRAS += 3
 
         # FAZER AS COISAS APARECEREM NA TELA
         janela.blit(fundo, (0, 0))
@@ -276,13 +284,13 @@ if mdj == 3:                                         #3º modo de jogo
         if event.type == pygame.QUIT:
             janela_aberta = False
         if comandos[pygame.K_w] and 30 <= y_barrae:
-            y_barrae -= vel_barras
+            y_barrae -= VEL_BARRAS
         if comandos[pygame.K_s] and y_barrae <= 530:
-            y_barrae += vel_barras
+            y_barrae += VEL_BARRAS
         if comandos[pygame.K_UP] and 30 <= y_barrad:
-            y_barrad -= vel_barras
+            y_barrad -= VEL_BARRAS
         if comandos[pygame.K_DOWN] and y_barrad <= 530:
-            y_barrad += vel_barras
+            y_barrad += VEL_BARRAS
 
         # LÓGICA DO JOGO
         if x_bola <= 10:
@@ -322,13 +330,13 @@ if mdj == 3:                                         #3º modo de jogo
             x_bola -= vel_bola
         if tempo_segundo == 10:
             vel_bola += 3
-            vel_barras += 2
+            VEL_BARRAS += 2
         if tempo_segundo == 20:
             vel_bola += 2
-            vel_barras += 1
+            VEL_BARRAS += 1
         if tempo_segundo == 30:
             vel_bola += 5
-            vel_barras += 3
+            VEL_BARRAS += 3
 
         # FAZER AS COISAS APARECEREM NA TELA
         janela.blit(fundo, (0, 0))
